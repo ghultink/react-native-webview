@@ -2,7 +2,7 @@
 import PackageDescription
 
 // Swift Package Manager support for React Native's SwiftPM autolinking
-// (react-native >= 0.87, `npx react-native spm`). CocoaPods users are unaffected:
+// (react-native >= 0.88, `npx react-native spm`). CocoaPods users are unaffected:
 // react-native-webview.podspec stays the source of truth there.
 //
 // The two React Native packages are resolved by the autolinker relative to
@@ -31,16 +31,13 @@ let package = Package(
             publicHeadersPath: ".",
             cSettings: [
                 .headerSearchPath("."),
+                .define("RCT_NEW_ARCH_ENABLED", to: "1"),
             ],
             cxxSettings: [
                 .headerSearchPath("."),
-                // Same flags the podspec build gets from React Native's CocoaPods setup.
+                .define("RCT_NEW_ARCH_ENABLED", to: "1"),
+                // Folly settings come from React Native's ReactNativeDependencies headers.
                 .unsafeFlags([
-                    "-DFOLLY_NO_CONFIG",
-                    "-DFOLLY_CFG_NO_COROUTINES=1",
-                    "-DFOLLY_MOBILE=1",
-                    "-DFOLLY_USE_LIBCPP=1",
-                    "-DRCT_NEW_ARCH_ENABLED=1",
                     "-Wno-comma",
                     "-Wno-shorten-64-to-32",
                 ]),

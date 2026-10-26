@@ -36,11 +36,6 @@ let package = Package(
             cxxSettings: [
                 .headerSearchPath("."),
                 .define("RCT_NEW_ARCH_ENABLED", to: "1"),
-                // Folly settings come from React Native's ReactNativeDependencies headers.
-                .unsafeFlags([
-                    "-Wno-comma",
-                    "-Wno-shorten-64-to-32",
-                ]),
                 .define("DEBUG", .when(configuration: .debug)),
                 .define("NDEBUG", .when(configuration: .release)),
             ],
